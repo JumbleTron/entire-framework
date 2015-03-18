@@ -32,11 +32,6 @@ class EntireFrameworkCallback {
             foreach($this->pages as $key => $page) {
                 $this->avaliblePage[] = $key;
                 $p = add_submenu_page($this->_slug,$page['title'],$page['name'],$this->_capability,$this->_slug."_$key",array($this,'entire_framework_render_pages_callback'));
-                if(isset($page['sub-pages'])) {
-                    foreach($page['sub-pages'] as $k => $subPage) {
-                        add_submenu_page($this->_slug."_$key",$subPage['title'],$subPage['name'],$this->_capability,$this->_slug."_$key_$k",array($this,'entire_framework_render_pages_callback'));
-                    }
-                }
                 add_action('load-'.$p,array($this,'entire_framework_current_page'));
             }
         }
@@ -46,14 +41,14 @@ class EntireFrameworkCallback {
     }
     
     public function entire_framework_register_settings() {
-        register_setting($this->settingsName,$this->settingsName,array($this,'entire_framework_sanitize_callback'));
+        register_setting($this->settingsName,$this->settingsName,array($this,'entire_framework_sanitize'));
         foreach($this->pages as $key => $page) {
             if(isset($page['sub-pages'])) {
                 foreach($page['sub-pages'] as $k => $subPage) {
                     add_settings_section($this->settingsName.'_'.$key.'_'.$k.'_section',$subPage['title'],array($this,'entire_framework_section_desc'),$this->_slug."_$key");
                     if(isset($subPage['fields'])) {
                         foreach($subPage['fields'] as $fKey => $field) {
-                            add_settings_field($fKey.'_field',$field['title'],array($this,'entire_framework_form_field'),$this->_slug."_$key",$this->settingsName.'_'.$key.'_section',$field);
+                            add_settings_field($fKey.'_field',$field['title'],array($this,'entire_framework_form_field'),$this->_slug."_$key",$this->settingsName.'_'.$key.'_'.$k.'_section',$field);
                         }
                     }
                 }
@@ -74,16 +69,16 @@ class EntireFrameworkCallback {
         if(isset($this->pages[$this->current]['sub-pages'])) {
             echo $this->renderTabs();
         } else {
-            do_settings_sections($this->_slug."_".$this->current);   
+            echo $this->entire_framework_do_settings_sections($this->_slug."_".$this->current);   
         }
     }
     
     public function entire_framework_section_desc() {
-        echo $this->pages[$this->current]['name'];
+        return "Sekcja desc";
     }
 
     public function entire_framework_form_field($args) {
-        print_r($args);
+        return print_r($args,true);
     }
     
     public function entire_framework_current_page() {
@@ -103,12 +98,50 @@ class EntireFrameworkCallback {
             $menu->addLink('#'.$this->generatSlug($subPage['name']),$subPage['title'],$subPage['icon']);
         }
         $render .= $menu->render();
-        foreach($this->pages[$this->current]['sub-pages'] as $key => $subPage) {
-            $render .= "<div id='".$this->generatSlug($subPage['name'])."'>";
-            $render .= do_settings_sections($this->_slug."_".$this->current."_$key");
-            $render .= "</div>";
-        }
+        $render .= $this->entire_framework_do_settings_sections($this->_slug."_".$this->current);
         $render .= "</div>";
+        
+        return $render;
+    }
+    
+    private function entire_framework_do_settings_sections($page) {
+        global $wp_settings_sections, $wp_settings_fields;
+        $render = '';
+        if (!isset($wp_settings_sections) || !isset($wp_settings_sections[$page]))
+            return $render;
+        foreach((array)$wp_settings_sections[$page] as $key => $section ) {
+            $render .= "<div id='".$this->generatSlug($section['title'])."'>";
+            $render .= "<h3>".$section['title']."</h3>";
+            $render .= call_user_func($section['callback'], $section);
+            if ( !isset($wp_settings_fields) ||
+                 !isset($wp_settings_fields[$page]) ||
+                 !isset($wp_settings_fields[$page][$section['id']]) )
+                    continue;
+            $render .= '<div class="settings-form-wrapper">';
+            $render .= $this->entire_framework_do_settings_fields($page, $section['id']);
+            $render .= '</div></div>';
+        }
+        return $render;
+    }
+    
+    private function entire_framework_do_settings_fields($page, $section) {
+        global $wp_settings_fields;
+        $render = '';
+        if ( !isset($wp_settings_fields) ||
+             !isset($wp_settings_fields[$page]) ||
+             !isset($wp_settings_fields[$page][$section]) )
+            return $render;
+
+        foreach ( (array) $wp_settings_fields[$page][$section] as $field ) {
+            $render .= '<div class="settings-form-row">';
+            if ( !empty($field['args']['label_for']) )
+                $render .= '<p><label for="' . $field['args']['label_for'] . '">' .
+                    $field['title'] . '</label><br />';
+            else
+                $render .= '<p>' . $field['title'] . '<br />';
+            $render .= call_user_func($field['callback'], $field['args']);
+            $render .= '</p></div>';
+        }
         return $render;
     }
     

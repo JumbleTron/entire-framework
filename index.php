@@ -2,6 +2,7 @@
 defined('ENTIRE_FRAMEWORK_URL') or define('ENTIRE_FRAMEWORK_URL',get_template_directory_uri().'/admin/entire-framework/');
 defined('ENTIRE_FRAMEWORK_DIR') or define('ENTIRE_FRAMEWORK_DIR',__DIR__.'/');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/entire-framework.php');
+require_once(ENTIRE_FRAMEWORK_DIR.'classes/tests/test.php');
 
 $pages = array(
     'general' => array(
@@ -22,9 +23,9 @@ $pages = array(
                 )
             ),
             array(
-                'name' => 'Home 2',
-                'title' => 'Home 2',
-                'icon' => 'home',
+                'name' => 'General',
+                'title' => 'General',
+                'icon' => 'cog',
                 'fields' => array(
                      array(
                         'id' => 'field1b_text',
@@ -68,3 +69,4 @@ $pages = array(
 
 $framework = new EntireFramework('Theme options','Theme options','dashicons-format-image');
 $framework->addPages($pages);
+//$test = new Test();
