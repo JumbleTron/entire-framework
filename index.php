@@ -5,13 +5,35 @@ require_once(ENTIRE_FRAMEWORK_DIR.'classes/entire-framework.php');
 
 $pages = array(
     'general' => array(
-        'sub-page' => array(
+        'sub-pages' => array(
             array(
                 'name' => 'Home',
                 'title' => 'Home',
                 'icon' => 'home',
                 'fields' => array(
-                    
+                     array(
+                        'id' => 'field1_text',
+                        'type' => 'text',
+                        'title' => 'Field 1 Text',
+                        'sub_desc' => 'Subdesc for testfield1',
+                        'desc' => 'Desc for testField1',
+                        'std' => "I'm looking for"
+                    )
+                )
+            ),
+            array(
+                'name' => 'Home 2',
+                'title' => 'Home 2',
+                'icon' => 'home',
+                'fields' => array(
+                     array(
+                        'id' => 'field1b_text',
+                        'type' => 'text',
+                        'title' => 'Field 1b Text',
+                        'sub_desc' => 'Subdesc for testfield1b',
+                        'desc' => 'Desc for testField1b',
+                        'std' => "I'm looking for 1b"
+                    )
                 )
             ),
         ),
@@ -25,12 +47,20 @@ $pages = array(
         'icon' => '',
         'fields' => array(
             array(
-                'id' => 'field1_text',
+                'id' => 'field2_text',
                 'type' => 'text',
-                'title' => 'Field 1 Text',
-                'sub_desc' => 'Subdesc for testfield1',
-                'desc' => 'Desc for testField1',
-                'std' => "I'm looking for"
+                'title' => 'Field 2 Text',
+                'sub_desc' => 'Subdesc for testfield2',
+                'desc' => 'Desc for testField2',
+                'std' => "I'm looking for 2"
+            ),
+             array(
+                'id' => 'field3_text',
+                'type' => 'text',
+                'title' => 'Field 3 Text',
+                'sub_desc' => 'Subdesc for testfield3',
+                'desc' => 'Desc for testFiel3',
+                'std' => "I'm looking for 3"
             )
         )
     ),

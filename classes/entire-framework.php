@@ -12,6 +12,6 @@ class EntireFramework {
     public function addPages($pages) {
         $this->callbackClass->addPages($pages);
     }
-    
+        
 }
 
