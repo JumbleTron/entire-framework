@@ -19,14 +19,14 @@ class EntireFrameworkCallback {
         $this->_name = $name;
         $this->_slug = $this->generatSlug();
         $this->_capability = $capability;
-        $this->icon = $icon;
+        $this->_icon = $icon;
         $this->settingsName = $this->_slug."_settings";
         add_action('admin_init', array($this,'entire_framework_register_settings'));
     }
     
     public function entire_framework_add_main_page_callback() {
         if($this->main_page === NULL) {
-            $this->main_page = add_menu_page($this->_title,$this->_name,$this->_capability,$this->_slug,array($this,'entire_framework_render_pages_callback'),  $this->_icon);
+            $this->main_page = add_menu_page($this->_title,$this->_name,$this->_capability,$this->_slug,array($this,'entire_framework_render_pages_callback'),$this->_icon);
         }
         if(!empty($this->pages)) {
             foreach($this->pages as $key => $page) {

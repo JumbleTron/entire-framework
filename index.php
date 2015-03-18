@@ -66,5 +66,5 @@ $pages = array(
     ),
 );
 
-$framework = new EntireFramework('Theme options','Theme options');
+$framework = new EntireFramework('Theme options','Theme options','dashicons-format-image');
 $framework->addPages($pages);
