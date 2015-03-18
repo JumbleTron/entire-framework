@@ -1,6 +1,7 @@
 <?php
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/menu.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/assets.php');
+require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/render-html.php');
 class EntireFrameworkCallback {
 
     protected $_title;
@@ -78,7 +79,6 @@ class EntireFrameworkCallback {
     }
 
     public function entire_framework_form_field($args) {
-        return print_r($args,true);
     }
     
     public function entire_framework_current_page() {
@@ -93,12 +93,18 @@ class EntireFrameworkCallback {
 
     private function renderTabs() {
         $render = "<div class='options-main-wrapper'>";
+        $render .= "<div class='ef-theme-options-buttons'>";
+        $render .= get_submit_button();
+        $render .= "</div>";
         $menu = new Menu('ul');
         foreach($this->pages[$this->current]['sub-pages'] as $key => $subPage) {
             $menu->addLink('#'.$this->generatSlug($subPage['name']),$subPage['title'],$subPage['icon']);
         }
         $render .= $menu->render();
         $render .= $this->entire_framework_do_settings_sections($this->_slug."_".$this->current);
+        $render .= "<div class='ef-theme-options-buttons-bottom'>";
+        $render .= get_submit_button();
+        $render .= "</div>";
         $render .= "</div>";
         
         return $render;
@@ -117,34 +123,15 @@ class EntireFrameworkCallback {
                  !isset($wp_settings_fields[$page]) ||
                  !isset($wp_settings_fields[$page][$section['id']]) )
                     continue;
-            $render .= '<div class="settings-form-wrapper">';
-            $render .= $this->entire_framework_do_settings_fields($page, $section['id']);
-            $render .= '</div></div>';
+            foreach ((array)$wp_settings_fields[$page][$section['id']] as $field) {
+                $html = new renderHTML($field['args']);
+                $render .= $html->render();
+            }
+            $render .= "</div>";
         }
         return $render;
     }
-    
-    private function entire_framework_do_settings_fields($page, $section) {
-        global $wp_settings_fields;
-        $render = '';
-        if ( !isset($wp_settings_fields) ||
-             !isset($wp_settings_fields[$page]) ||
-             !isset($wp_settings_fields[$page][$section]) )
-            return $render;
-
-        foreach ( (array) $wp_settings_fields[$page][$section] as $field ) {
-            $render .= '<div class="settings-form-row">';
-            if ( !empty($field['args']['label_for']) )
-                $render .= '<p><label for="' . $field['args']['label_for'] . '">' .
-                    $field['title'] . '</label><br />';
-            else
-                $render .= '<p>' . $field['title'] . '<br />';
-            $render .= call_user_func($field['callback'], $field['args']);
-            $render .= '</p></div>';
-        }
-        return $render;
-    }
-    
+        
     private function generatSlug($slug = NULL) {
         if($slug === NULL) {
             return substr(strtolower(str_replace(" ",'_',$this->_name)),0,15);

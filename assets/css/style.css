@@ -1,6 +1,24 @@
 .clearfix {
     clear: both;
 }
+.options-main-wrapper {
+    position: relative;
+}
+.ef-theme-options-buttons,
+.ef-theme-options-buttons-bottom {
+    position: absolute;
+    top: 0;
+    right: 2%;
+}
+.ef-theme-options-buttons-bottom {
+    top: inherit;
+    bottom: 0;
+}
+.ef-theme-options-buttons p.submit,
+.ef-theme-options-buttons-bottom p.submit {
+    margin: 5px 0;
+    padding: 0;
+}
 .button-wrapper {
     text-align: right;
 }
@@ -9,7 +27,7 @@
 .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
 .ui-tabs-vertical .ui-tabs-nav li a { display:block; width:96%; height:90%; padding:5% 0 5% 4% !important; }
 .ui-tabs-vertical .ui-tabs-nav li a i { margin-right:10px; }
-.ui-tabs-vertical .ui-tabs-panel { padding: .5em 1em; float: right; width: 80%;}
+.ui-tabs-vertical .ui-tabs-panel { padding: .5em 1em; float: right; width: 80%; }
 
 a icon.fa {
     margin-right: 10px;
