@@ -21,7 +21,7 @@ $pages = array(
                         'value' => "I'm looking for"
                     ),
                     array(
-                        'id' => 'checkbox',
+                        'id' => 'checkbox_1',
                         'type' => 'checkbox',
                         'label' => 'Select 1',
                         'sub_desc' => 'Subdesc for checkbox1',
@@ -29,7 +29,7 @@ $pages = array(
                         'options' => array('value 1','value 2','value 3')
                     ),
                     array(
-                        'id' => 'select1',
+                        'id' => 'select_1',
                         'type' => 'select',
                         'label' => 'Select 1',
                         'sub_desc' => 'Subdesc for select1',
@@ -37,7 +37,7 @@ $pages = array(
                         'options' => array('value 1','value 2','value 3')
                     ),
                     array(
-                        'id' => 'radio',
+                        'id' => 'radio_1',
                         'type' => 'radio',
                         'label' => 'Radio 1',
                         'sub_desc' => 'Subdesc for radio1',
@@ -45,7 +45,7 @@ $pages = array(
                         'options' => array('value 1','value 2','value 3')
                     ),
                     array(
-                        'id' => 'textarea_text',
+                        'id' => 'textarea_text_1',
                         'type' => 'textarea',
                         'label' => 'Textarea 1 Text',
                         'sub_desc' => 'Subdesc for textarea',
@@ -98,7 +98,6 @@ $pages = array(
         )
     ),
 );
-
 $framework = new EntireFramework('Theme options','Theme options','dashicons-format-image');
 $framework->addPages($pages);
 //$test = new Test();

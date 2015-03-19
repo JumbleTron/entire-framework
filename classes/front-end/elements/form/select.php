@@ -4,8 +4,8 @@ class Select extends Element {
     
     private $options;
     
-    public function __construct($element) {
-        parent::__construct($element);
+    public function __construct($element,$slug) {
+        parent::__construct($element,$slug);
         if(isset($element['options'])) {
             $this->options = $element['options'];
         }

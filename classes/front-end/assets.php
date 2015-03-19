@@ -30,16 +30,16 @@ class Assets {
             if(!empty($this->style)) {
                 foreach($this->style as $key => $style) {
                     $url = ENTIRE_FRAMEWORK_URL.$style['link'];
-                    if($style['external']) {
+                    if(isset($style['external']) && $style['external']) {
                         $url = $style['link'];
                     }
-                    wp_enqueue_style($key,$url,$style->depth);
+                    wp_enqueue_style($key,$url,$style['depth']);
                 }
             }
             if(!empty($this->script)) {
                 foreach($this->script as $key => $script) {
                     $url = ENTIRE_FRAMEWORK_URL.$script['link'];
-                    if($script['external']) {
+                    if(isset($script['external']) && $script['external']) {
                         $url = $script['link'];
                     }
                     wp_enqueue_script($key,$url,$script['depth'],'',true);

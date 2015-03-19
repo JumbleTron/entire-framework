@@ -8,15 +8,10 @@ class Element {
     protected $_label;
 
 
-    public function __construct($element) {
-        if(isset($element['name'])) {
-            $this->_name = $element['name'];
-        }
+    public function __construct($element,$slug) {
         if(isset($element['id'])) {
             $this->_id = $element['id'];
-            if(!isset($element['name'])) {
-                $this->_name = $element['id'];
-            }
+            $this->_name = $slug.'['.$element['id'].']';
         }
         if(isset($element['label'])) {
             $this->_label = $element['label'];
@@ -27,6 +22,8 @@ class Element {
         if(isset($element['class'])) {
             $this->_class = $element['class'];
         }
+        $this->_page = $page;
+        $this->_slug = $slug;
     }
     
     protected function _render($child) {
@@ -37,8 +34,9 @@ class Element {
         return $render;
     }
 
-    protected function _generateID($name) {
-        return substr(md5(strtolower(str_replace(' ','_',$name)).date('c')),-10,10);
+    protected function _generateID($string) {
+        $id = md5($string.rand(0,999999999).time());
+        return substr($id,-8);
     }
 
     protected function _emptyValue() {

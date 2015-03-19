@@ -20,30 +20,30 @@ class renderHTML {
         }
     }
     
-    public function render() {
-        $obj = $this->createObject();
+    public function render($slug) {
+        $obj = $this->createObject($slug);
         if(is_object($obj)) {
             return $obj->render();
         }
     }
     
-    private function createObject() {
+    private function createObject($slug) {
         $obj = NULL;
         switch($this->type) {
             case 'text' :
-                $obj = new Textbox($this->elemnet);
+                $obj = new Textbox($this->elemnet,$slug);
                 break;
             case 'textarea' :
-                $obj = new Textarea($this->elemnet);
+                $obj = new Textarea($this->elemnet,$slug);
                 break;
             case 'select' :
-                $obj = new Select($this->elemnet);
+                $obj = new Select($this->elemnet,$slug);
                 break;
             case 'radio' :
-                $obj = new Radiobox($this->elemnet);
+                $obj = new Radiobox($this->elemnet,$slug);
                 break;
             case 'checkbox' :
-                $obj = new Checkbox($this->elemnet);
+                $obj = new Checkbox($this->elemnet,$slug);
                 break;
         }
         return $obj;

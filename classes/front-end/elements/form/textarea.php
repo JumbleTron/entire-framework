@@ -2,8 +2,8 @@
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/element.php');
 class Textarea extends Element {
         
-    public function __construct($element) {
-        parent::__construct($element);
+    public function __construct($element,$slug) {
+        parent::__construct($element,$slug);
     }
 
     public function render() {

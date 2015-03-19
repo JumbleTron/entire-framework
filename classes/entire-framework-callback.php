@@ -14,6 +14,7 @@ class EntireFrameworkCallback {
     private $current;
     private $settingsName;
     private $avaliblePage;
+    private $options;
    
     public function __construct($title,$name,$icon,$capability) {
         $this->_title = $title;
@@ -42,7 +43,7 @@ class EntireFrameworkCallback {
     }
     
     public function entire_framework_register_settings() {
-        register_setting($this->settingsName,$this->settingsName,array($this,'entire_framework_sanitize'));
+        register_setting($this->settingsName.'_group',$this->settingsName,array($this,'entire_framework_sanitize'));
         foreach($this->pages as $key => $page) {
             if(isset($page['sub-pages'])) {
                 foreach($page['sub-pages'] as $k => $subPage) {
@@ -66,12 +67,15 @@ class EntireFrameworkCallback {
     }
     
     public function entire_framework_render_pages_callback() {
-        settings_fields($this->settingsName);   
+        echo '<form method="post" action="options.php">';
+        settings_fields($this->settingsName.'_group');   
         if(isset($this->pages[$this->current]['sub-pages'])) {
             echo $this->renderTabs();
         } else {
             echo $this->entire_framework_do_settings_sections($this->_slug."_".$this->current);   
+            echo get_submit_button();
         }
+        echo '</form>';
     }
     
     public function entire_framework_section_desc() {
@@ -79,12 +83,22 @@ class EntireFrameworkCallback {
     }
 
     public function entire_framework_form_field($args) {
+        $html = new renderHTML($args);
+        return $html->render($this->settingsName);
     }
     
     public function entire_framework_current_page() {
         $screen = get_current_screen();
         $id = explode($this->_slug.'_',$screen->base);
         $this->current = $id[1];
+    }
+    
+    public function entire_framework_sanitize($input) {
+        $new_input = array();
+        foreach($input as $key => $value) {
+            $new_input[$key] = $value;
+        }
+        return $new_input;
     }
     
     public function addPages($pages) {
@@ -112,6 +126,7 @@ class EntireFrameworkCallback {
     
     private function entire_framework_do_settings_sections($page) {
         global $wp_settings_sections, $wp_settings_fields;
+        $this->options =  get_option($this->settingsName);
         $render = '';
         if (!isset($wp_settings_sections) || !isset($wp_settings_sections[$page]))
             return $render;
@@ -124,14 +139,27 @@ class EntireFrameworkCallback {
                  !isset($wp_settings_fields[$page][$section['id']]) )
                     continue;
             foreach ((array)$wp_settings_fields[$page][$section['id']] as $field) {
-                $html = new renderHTML($field['args']);
-                $render .= $html->render();
+                $field['args']['value'] = $this->setValue($field['args']);
+                $render .= call_user_func($field['callback'],$field['args']);
             }
             $render .= "</div>";
         }
         return $render;
     }
-        
+
+    private function setValue($args) {
+        $value = '';
+        if(isset($this->options[$args['id']])) {
+            $value = $this->options[$args['id']];
+        }
+        else {
+            if(isset($args['value'])) {
+                $value = $args['value'];
+            }
+        }
+        return $value;
+    } 
+    
     private function generatSlug($slug = NULL) {
         if($slug === NULL) {
             return substr(strtolower(str_replace(" ",'_',$this->_name)),0,15);

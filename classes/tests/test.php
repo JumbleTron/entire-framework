@@ -1,15 +1,26 @@
 <?php
 class Test
 {
-    private $current;
-    
+     /**
+     * Holds the values to be used in the fields callbacks
+     */
+    private $options;
+
+    /**
+     * Start up
+     */
     public function __construct()
     {
-        add_action('admin_menu', array($this,'add_plugin_page'));
+        add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
         add_action( 'admin_init', array( $this, 'page_init' ) );
     }
+
+    /**
+     * Add options page
+     */
     public function add_plugin_page()
     {
+        // This page will be under "Settings"
         add_menu_page(
             'Settings Admin', 
             'My Settings', 
@@ -17,28 +28,14 @@ class Test
             'my-setting-admin', 
             array( $this, 'create_admin_page' )
         );
-        for($i=0;$i<5;$i++) {
-            $p = add_submenu_page(
-                'my-setting-admin',
-                'Test child '.$i,
-                'Test child '.$i,
-                'manage_options',
-                'child_slug_'.$i,
-                array($this,'create_admin_page')
-            );
-            add_action('load-'.$p,array($this,'current_page'));
-        }
+        add_submenu_page('my-setting-admin','Test','Test','manage_options','my-setting-admin_child',array($this,'create_admin_page'));
     }
-    
-    public function current_page() {
-        $screen = get_current_screen();
-        $id = explode('_',$screen->base);
-        $this->current = end($id);
-    }
-    
+
+    /**
+     * Options page callback
+     */
     public function create_admin_page()
     {
-        $i = $this->current;
         // Set class property
         $this->options = get_option( 'my_option_name' );
         ?>
@@ -48,58 +45,47 @@ class Test
             <?php
                 // This prints out all hidden setting fields
                 settings_fields( 'my_option_group' );   
-                do_settings_sections('child_slug_'.$i);
+                do_settings_sections( 'my-setting-admin' );
                 submit_button(); 
             ?>
             </form>
         </div>
         <?php
     }
-    
+
+    /**
+     * Register and add settings
+     */
     public function page_init()
     {        
         register_setting(
-            'my_option_name', // Option group
+            'my_option_group', // Option group
             'my_option_name', // Option name
             array( $this, 'sanitize' ) // Sanitize
         );
-        for($i=0;$i<5;$i++) {
-            add_settings_section(
-                'setting_section_id_'.$i, // ID
-                'My Custom Settings '.$i, // Title
-                array( $this, 'print_section_info' ), // Callback
-                'child_slug_'.$i // Page
-            );  
-            add_settings_field(
-                'id_number_'.$i, // ID
-                'ID Number '.$i, // Title 
-                array( $this,'id_number_callback'), // Callback
-                'child_slug_'.$i, // Page
-                'setting_section_id_'.$i // Section           
-            );
-            if($i == 2 || $i == 4) {
-                add_settings_section(
-                    'setting_section_id_'.$i.'_b', // ID
-                    'My Custom Settings '.$i.'_b', // Title
-                    array( $this, 'print_section_info' ), // Callback
-                    'child_slug_'.$i // Page
-                ); 
-                add_settings_field(
-                    'title', 
-                    'Title', 
-                    array( $this, 'title_callback' ), 
-                    'child_slug_'.$i,
-                    'setting_section_id_'.$i
-                ); 
-                add_settings_field(
-                    'id_number_'.$i, // ID
-                    'ID Number '.$i, // Title 
-                    array( $this,'id_number_callback'), // Callback
-                    'child_slug_'.$i, // Page
-                    'setting_section_id_'.$i.'_b' // Section           
-                );
-            }
-        }           
+
+        add_settings_section(
+            'setting_section_id', // ID
+            'My Custom Settings', // Title
+            array( $this, 'print_section_info' ), // Callback
+            'my-setting-admin' // Page
+        );  
+
+        add_settings_field(
+            'id_number', // ID
+            'ID Number', // Title 
+            array( $this, 'id_number_callback' ), // Callback
+            'my-setting-admin', // Page
+            'setting_section_id' // Section           
+        );      
+
+        add_settings_field(
+            'title', 
+            'Title', 
+            array( $this, 'title_callback' ), 
+            'my-setting-admin', 
+            'setting_section_id'
+        );      
     }
 
     /**

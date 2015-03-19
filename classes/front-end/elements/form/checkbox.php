@@ -4,8 +4,8 @@ class Checkbox extends Element {
     
     private $options;
     
-    public function __construct($element) {
-        parent::__construct($element);
+    public function __construct($element,$slug) {
+        parent::__construct($element,$slug);
         if(isset($element['options'])) {
             $this->options = $element['options'];
         }
@@ -16,8 +16,8 @@ class Checkbox extends Element {
         foreach($this->options as $key => $value) {
             $id = $this->_generateID($value);
             $render .= "<label for='".$id."'>".$value."</label>";
-            $render .= "<input type=\"checkbox\" ".checked($key,$this->_value,false);
-            $render .= " id='".$id."' value='".$key."' name='".$this->_name."' class='".$this->_class."'>";
+            $render .= "<input type=\"checkbox\" ".$this->entire_framework_checked($key,$this->_value);
+            $render .= " id='".$id."' value='".$key."' name='".$this->_name."[]' class='".$this->_class."'>";
         }
         return $this->_render($render);
     }
@@ -34,6 +34,16 @@ class Checkbox extends Element {
         $this->options = $options;
     }
     
+    private function entire_framework_checked($current,$value) {
+        if(is_array($value)) {
+            if(in_array($current,$value)) {
+                return "checked='checked'";
+            }
+        }
+        else {
+           return checked($current,$this->_value,false); 
+        }
+    }
 
 }
 
