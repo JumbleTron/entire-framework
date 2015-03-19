@@ -43,8 +43,8 @@ class EntireFrameworkCallback {
     }
     
     public function entire_framework_register_settings() {
-        register_setting($this->settingsName.'_group',$this->settingsName,array($this,'entire_framework_sanitize'));
         foreach($this->pages as $key => $page) {
+            register_setting($this->settingsName.'_group_'.$key,$this->settingsName.'_'.$key,array($this,'entire_framework_sanitize'));
             if(isset($page['sub-pages'])) {
                 foreach($page['sub-pages'] as $k => $subPage) {
                     add_settings_section($this->settingsName.'_'.$key.'_'.$k.'_section',$subPage['title'],array($this,'entire_framework_section_desc'),$this->_slug."_$key");
@@ -68,7 +68,7 @@ class EntireFrameworkCallback {
     
     public function entire_framework_render_pages_callback() {
         echo '<form method="post" action="options.php">';
-        settings_fields($this->settingsName.'_group');   
+        settings_fields($this->settingsName.'_group_'.$this->current);   
         if(isset($this->pages[$this->current]['sub-pages'])) {
             echo $this->renderTabs();
         } else {
@@ -84,7 +84,7 @@ class EntireFrameworkCallback {
 
     public function entire_framework_form_field($args) {
         $html = new renderHTML($args);
-        return $html->render($this->settingsName);
+        return $html->render($this->settingsName.'_'.$this->current);
     }
     
     public function entire_framework_current_page() {
@@ -126,7 +126,7 @@ class EntireFrameworkCallback {
     
     private function entire_framework_do_settings_sections($page) {
         global $wp_settings_sections, $wp_settings_fields;
-        $this->options =  get_option($this->settingsName);
+        $this->options =  get_option($this->settingsName.'_'.$this->current);
         $render = '';
         if (!isset($wp_settings_sections) || !isset($wp_settings_sections[$page]))
             return $render;
