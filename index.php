@@ -52,6 +52,14 @@ $pages = array(
                         'desc' => 'Desc for textarea',
                         'value' => "I'm looking for textarea"
                     ),
+                    array(
+                        'id' => 'first_image',
+                        'type' => 'file',
+                        'label' => 'First image',
+                        'sub_desc' => 'Subdesc for image1',
+                        'desc' => 'Desc for image1',
+                        'value' => "cwiczenie"
+                    ),
                 )
             ),
             array(

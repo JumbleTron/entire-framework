@@ -32,3 +32,11 @@
 a icon.fa {
     margin-right: 10px;
 }
+
+.ef-image-wrapper {
+    width: auto;
+    height: 150px;
+}
+.ef-image-wrapper img {
+    height: 100%;
+}

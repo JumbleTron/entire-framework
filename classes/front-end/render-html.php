@@ -45,6 +45,9 @@ class renderHTML {
             case 'checkbox' :
                 $obj = new Checkbox($this->elemnet,$slug);
                 break;
+            case 'file' :
+                $obj = new File($this->elemnet,$slug);
+                break;
         }
         return $obj;
     }
