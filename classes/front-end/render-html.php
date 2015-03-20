@@ -5,6 +5,7 @@ require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/radiobox.php'
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/select.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/textarea.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/textbox.php');
+require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/switcher.php');
 class renderHTML {
     
     private $elemnet;
@@ -47,6 +48,9 @@ class renderHTML {
                 break;
             case 'file' :
                 $obj = new File($this->elemnet,$slug);
+                break;
+            case 'switcher' :
+                $obj = new Switcher($this->elemnet,$slug);
                 break;
         }
         return $obj;

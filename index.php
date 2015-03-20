@@ -36,6 +36,14 @@ $pages = array(
                         'desc' => 'Desc for select11',
                         'options' => array('value 1','value 2','value 3')
                     ),
+                     array(
+                        'id' => 'switcher_1',
+                        'type' => 'switcher',
+                        'label' => 'ON/OFF',
+                        'sub_desc' => 'Subdesc for switcher_1',
+                        'desc' => 'Desc for switcher_1',
+                        'options' => array('ON','OFF')
+                    ),
                     array(
                         'id' => 'radio_1',
                         'type' => 'radio',
