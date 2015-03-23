@@ -3,19 +3,23 @@ require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/element.php');
 class File extends Element {
     
     private $mutli = false;
+    private $avalible = '';
 
 
     public function __construct($element,$slug) {
         if(isset($element['multi'])) {
             $this->setMutli($element['multi']);
         }
+        if(isset($element['file_type'])) {
+            $this->avalible = $element['file_type'];
+        }
         parent::__construct($element,$slug);
     }
     
     public function render() {
-        $render = '<input type="hidden" name="'.$this->_name.'"/>';
+        $render  = '<input type="hidden" name="'.$this->_name.'" value="'.$this->_value.'"/>';
         $render .= "<p class='ef-image-wrapper'>".$this->renderImage($this->_value)."</p>";
-        $render .= '<a title="Add file" class="button ef-insert-media" href="#" data-multi="'.$this->getMulti().'">Add file</a>';
+        $render .= '<a title="Add file" class="button ef-insert-media" href="#" data-multi="'.$this->getMulti().'" data-file_type="'.$this->getAvalible().'">Add file</a>';
         return $this->_render($render);
     }
     
@@ -26,7 +30,15 @@ class File extends Element {
         }
     }
     
-    private function slugToURL($url) {
+    private function getAvalible() {
+        if($this->avalible != '') {
+            return $this->avalible;
+        } else {
+            return '';
+        }
+    }
+    
+    private function slugToURL($slug) {
         $args = array(
             'post_type' => 'attachment',
             'name' => sanitize_title($slug),

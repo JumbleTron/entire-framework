@@ -66,7 +66,8 @@ $pages = array(
                         'label' => 'First image',
                         'sub_desc' => 'Subdesc for image1',
                         'desc' => 'Desc for image1',
-                        'value' => "cwiczenie"
+                        'value' => "cwiczenie",
+                        'file_type' => 'image',
                     ),
                 )
             ),

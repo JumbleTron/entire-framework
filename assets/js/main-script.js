@@ -8,18 +8,23 @@
         e.preventDefault();
         var $button = $(this);
         var multi = $(this).data('multi') == 'true' ? true : false;
-        custom_uploader = wp.media.frames.file_frame = wp.media({
+        custom_uploader = wp.media({
             title: 'Choose Image',
-            button: {
-                text: 'Choose Image'
+            library: { 
+                type: $(this).data('file_type'),
             },
-            multiple: multi
+            button: {
+                text: 'Choose Image',
+                close: true
+            },
+            multiple: multi,
+            returned_image_size: 'thumbnail'
         });
         
         custom_uploader.on('select', function() {
             attachment = custom_uploader.state().get('selection').toJSON();
             if(!multi) {
-                $('.ef-image-wrapper').html('<img src = "'+attachment[0].url+'" />');
+                $button.parent().find('.ef-image-wrapper').html('<img src = "'+attachment[0].url+'" />');
                 $button.parent().find('input[type="hidden"]').val(attachment[0].name);
             } 
             /*$.each(attachment, function(i, item) {
