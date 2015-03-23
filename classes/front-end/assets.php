@@ -25,6 +25,7 @@ class Assets {
     }    
     public function theme_enqueue_styles($current_screen) {
     	wp_enqueue_script('jquery');
+        wp_enqueue_style('wp-color-picker');
         wp_enqueue_media();
         $name = explode("_",$current_screen->base);
         if(is_array($this->pageSlug) && in_array(end($name),$this->pageSlug)) {

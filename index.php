@@ -12,13 +12,21 @@ $pages = array(
                 'title' => 'Home',
                 'icon' => 'home',
                 'fields' => array(
-                     array(
+                    array(
                         'id' => 'field1_text',
                         'type' => 'text',
                         'label' => 'Field 1 Text',
                         'sub_desc' => 'Subdesc for testfield1',
                         'desc' => 'Desc for testField1',
                         'value' => "I'm looking for"
+                    ),
+                    array(
+                        'id' => 'color_field1',
+                        'type' => 'color',
+                        'label' => 'Label for 1 color',
+                        'sub_desc' => 'Subdesc for testfield1',
+                        'desc' => 'Desc for testField1',
+                        'value' => "#1e73be"
                     ),
                     array(
                         'id' => 'checkbox_1',

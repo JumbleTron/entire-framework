@@ -1,5 +1,4 @@
 <?php
-require_once(ENTIRE_FRAMEWORK_DIR.'index.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/menu.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/assets.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/render-html.php');

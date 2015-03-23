@@ -18,7 +18,7 @@ class Resources {
     public static $script = array(
         'ef-framework-main-script' => array(
             'link' => 'assets/js/main-script.js',
-            'depth' => array('jquery','jquery-ui-tabs')
+            'depth' => array('jquery','jquery-ui-tabs','wp-color-picker')
         ),
     );
 }

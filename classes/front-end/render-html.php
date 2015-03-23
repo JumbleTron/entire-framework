@@ -34,6 +34,10 @@ class renderHTML {
             case 'text' :
                 $obj = new Textbox($this->elemnet,$slug);
                 break;
+            case 'color' :
+                $obj = new Textbox($this->elemnet,$slug);
+                $obj->setClass('ef-color_picker');
+                break;
             case 'textarea' :
                 $obj = new Textarea($this->elemnet,$slug);
                 break;

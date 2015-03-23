@@ -42,6 +42,7 @@
         custom_uploader.open();
     });
     
+    $('.ef-color_picker').wpColorPicker();
     
 })(jQuery);
 
