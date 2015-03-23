@@ -35,10 +35,9 @@ a icon.fa {
 
 .ef-image-wrapper {
     width: auto;
-    height: 150px;
 }
 .ef-image-wrapper img {
-    height: 100%;
+    height: 150px;
 }
 
 /* on/off switcher css */

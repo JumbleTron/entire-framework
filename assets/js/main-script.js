@@ -4,7 +4,13 @@
     $(".options-main-wrapper").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
     $(".menu li").removeClass("ui-corner-top").addClass("ui-corner-left");
     
-     $('.ef-insert-media').click(function(e) {
+    $('.remove_file').click(function(e) {
+        e.preventDefault();
+        $(this).parent().find('.ef-image-wrapper').html('');
+        $(this).parent().find('input[type="hidden"]').val('');
+    });
+    
+    $('.ef-insert-media').click(function(e) {
         e.preventDefault();
         var $button = $(this);
         var multi = $(this).data('multi') == 'true' ? true : false;
@@ -34,7 +40,6 @@
         });
         
         custom_uploader.open();
-        
     });
     
     

@@ -20,6 +20,7 @@ class File extends Element {
         $render  = '<input type="hidden" name="'.$this->_name.'" value="'.$this->_value.'"/>';
         $render .= "<p class='ef-image-wrapper'>".$this->renderImage($this->_value)."</p>";
         $render .= '<a title="Add file" class="button ef-insert-media" href="#" data-multi="'.$this->getMulti().'" data-file_type="'.$this->getAvalible().'">Add file</a>';
+        $render .= get_submit_button('Remove','secondary delete remove_file','remove-file',false);
         return $this->_render($render);
     }
     
