@@ -13,6 +13,12 @@ class Test
     {
         add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
         add_action( 'admin_init', array( $this, 'page_init' ) );
+        add_action( 'admin_notices', array( $this,'unique_identifyer_admin_notices'));
+    }
+
+    /* admin notice */
+    function unique_identifyer_admin_notices() {
+        settings_errors( 'my_option_name' );
     }
 
     /**
@@ -102,6 +108,7 @@ class Test
         if( isset( $input['title'] ) )
             $new_input['title'] = sanitize_text_field( $input['title'] );
 
+        add_settings_error('my_option_name', esc_attr('settings_updated'), __('Settings saved.'),'updated');
         return $new_input;
     }
 

@@ -24,6 +24,11 @@ class EntireFrameworkCallback {
         $this->_icon = $icon;
         $this->settingsName = $this->_slug."_settings";
         add_action('admin_init', array($this,'entire_framework_register_settings'));
+        add_action('admin_notices',array($this,'entire_framework_admin_notice'));
+    }
+    
+    public function entire_framework_admin_notice() {
+        settings_errors('entire-framework-options-save-notice');
     }
     
     public function entire_framework_add_main_page_callback() {
@@ -98,6 +103,7 @@ class EntireFrameworkCallback {
         foreach($input as $key => $value) {
             $new_input[$key] = $value;
         }
+        add_settings_error('entire-framework-options-save-notice', esc_attr('ef-info'), __('Settings saved.'),'updated');
         return $new_input;
     }
     
