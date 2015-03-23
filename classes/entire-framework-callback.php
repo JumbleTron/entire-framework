@@ -1,4 +1,5 @@
 <?php
+require_once(ENTIRE_FRAMEWORK_DIR.'index.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/menu.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/assets.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/render-html.php');
@@ -99,11 +100,31 @@ class EntireFrameworkCallback {
     }
     
     public function entire_framework_sanitize($input) {
+        $current = end(explode('_',$_REQUEST['option_page']));
         $new_input = array();
-        foreach($input as $key => $value) {
-            $new_input[$key] = $value;
+        if($_REQUEST['ef-restore-default']) {
+            if(isset($this->pages[$current]['sub-pages'])) {
+                foreach($this->pages[$current]['sub-pages'] as $key => $page) {
+                    foreach($page['fields'] as $fkey => $value) {
+                        $value = isset($value['value']) ? $value['value'] : '';
+                        $new_input[$fkey] = $value;
+                    }
+                }
+            }
+            else {
+                foreach($this->pages[$current]['fields'] as $key => $value) {
+                    $value = isset($value['value']) ? $value['value'] : '';
+                    $new_input[$key] = $value;
+                }
+            }
+            add_settings_error('entire-framework-options-save-notice', esc_attr('ef-info'), __('Settings restored.'),'updated');
         }
-        add_settings_error('entire-framework-options-save-notice', esc_attr('ef-info'), __('Settings saved.'),'updated');
+        else {
+            foreach($input as $key => $value) {
+                $new_input[$key] = $value;
+            }
+            add_settings_error('entire-framework-options-save-notice', esc_attr('ef-info'), __('Settings saved.'),'updated');
+        }
         return $new_input;
     }
     
@@ -114,7 +135,8 @@ class EntireFrameworkCallback {
     private function renderTabs() {
         $render = "<div class='options-main-wrapper'>";
         $render .= "<div class='ef-theme-options-buttons'>";
-        $render .= get_submit_button();
+        $render .= get_submit_button('Save Changes','primary large','submit',false);
+        $render .= get_submit_button('Restore default','large secondary','ef-restore-default',false);
         $render .= "</div>";
         $menu = new Menu('ul');
         foreach($this->pages[$this->current]['sub-pages'] as $key => $subPage) {
@@ -123,7 +145,8 @@ class EntireFrameworkCallback {
         $render .= $menu->render();
         $render .= $this->entire_framework_do_settings_sections($this->_slug."_".$this->current);
         $render .= "<div class='ef-theme-options-buttons-bottom'>";
-        $render .= get_submit_button();
+        $render .= get_submit_button('Save Changes','primary large','submit',false);
+        $render .= get_submit_button('Restore default','large secondary','ef-restore-default',false);
         $render .= "</div>";
         $render .= "</div>";
         
