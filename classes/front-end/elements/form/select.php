@@ -12,12 +12,13 @@ class Select extends Element {
     }
     
     public function render() {
-        $render = "<select id='".$this->_id."' name='".$this->_name."'".$this->getClass().">";
+        $render = '<span class="css3-metro-dropdown">';
+        $render .= "<select id='".$this->_id."' name='".$this->_name."'".$this->getClass().">";
 	$render .= $this->_emptyValue();
         foreach($this->options as $key => $value) {
             $render .= '<option value="'.$key.'" '.selected($key,$this->_value,false).'>'.$value.'</option>';
         }
-        $render .= "</select>";
+        $render .= "</select></span>";
         return $this->_render($render);
     }
     

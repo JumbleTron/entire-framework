@@ -40,6 +40,179 @@ a icon.fa {
     height: 150px;
 }
 
+/* radio/checkbox style */
+.css3-radios label,
+.css3-radios input[type="radio"] + span,
+.css3-radios input[type="radio"] + span::before,
+.css3-checkboxes label,
+.css3-checkboxes input[type="checkbox"] + span,
+.css3-checkboxes input[type="checkbox"] + span::before
+{
+    display: inline-block;
+    vertical-align: middle;
+}
+ 
+.css3-radios,
+.css3-checkboxes
+{
+    position: relative;
+}
+ 
+.css3-radios label *,
+.css3-checkboxes label *
+{
+    cursor: pointer;
+}
+ 
+.css3-radios input[type="radio"],
+.css3-checkboxes input[type="checkbox"]
+{
+    opacity: 0;
+    position: absolute;
+}
+ 
+.css3-radios input[type="radio"] + span,
+.css3-checkboxes input[type="checkbox"] + span
+{
+    font: normal 11px/14px Arial, Sans-serif;
+    color: #333;
+}
+ 
+.css3-radios label:hover span::before,
+.css3-checkboxes label:hover span::before
+{
+    -moz-box-shadow: 0 0 2px #ccc;
+    -webkit-box-shadow: 0 0 2px #ccc;
+    box-shadow: 0 0 2px #ccc;
+}
+ 
+.css3-radios label:hover span,
+.css3-checkboxes label:hover span
+{
+    color: #000;
+}
+ 
+.css3-radios input[type="radio"] + span::before,
+.css3-checkboxes input[type="checkbox"] + span::before
+{
+    content: "";
+    width: 12px;
+    height: 12px;
+    margin: 0 4px 0 0;
+    border: solid 1px #a8a8a8;
+    line-height: 14px;
+    text-align: center;
+     
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+     
+    background: #f6f6f6;
+    background: -moz-radial-gradient(#f6f6f6, #dfdfdf);
+    background: -webkit-radial-gradient(#f6f6f6, #dfdfdf);
+    background: -ms-radial-gradient(#f6f6f6, #dfdfdf);
+    background: -o-radial-gradient(#f6f6f6, #dfdfdf);
+    background: radial-gradient(#f6f6f6, #dfdfdf);
+}
+ 
+.css3-radios input[type="radio"]:checked + span::before,
+.css3-checkboxes input[type="checkbox"]:checked + span::before
+{
+    color: #666;
+}
+ 
+.css3-radios input[type="radio"]:disabled + span,
+.css3-checkboxes input[type="checkbox"]:disabled + span
+{
+    cursor: default;
+     
+    -moz-opacity: .4;
+    -webkit-opacity: .4;
+    opacity: .4;
+}
+.css3-checkboxes input[type="checkbox"] + span::before
+{
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+ 
+.css3-radios input[type="radio"]:checked + span::before
+{
+    content: "\2022";
+    font-size: 24px;
+}
+ 
+.css3-checkboxes input[type="checkbox"]:checked + span::before
+{
+    content: "\2714";
+    font-size: 12px;
+}
+/* radio/checkbox style */
+
+/* select style */
+.css3-metro-dropdown option,
+.css3-metro-dropdown:after,
+.css3-metro-dropdown::after,
+.css3-metro-dropdown select
+{
+    color: #fff;
+}
+ 
+.css3-metro-dropdown select,
+.css3-metro-dropdown:after,
+.css3-metro-dropdown::after
+{
+    display: block;
+    background: #78ba00;
+}
+ 
+.css3-metro-dropdown select,
+.css3-metro-dropdown option
+{
+    padding: 8px;
+}
+ 
+:root .css3-metro-dropdown
+{
+    position: relative;
+    display: inline-block;
+    border: 0;
+}
+ 
+.css3-metro-dropdown::after
+{
+    content: "\25bc";
+    position: absolute;
+    top: 1px;
+    right: 0;
+    display: block;
+    width: 32px;
+    font-size: 12px;
+    line-height: 34px;
+    text-align: center;
+     
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    pointer-events: none;
+}
+ 
+.css3-metro-dropdown select
+{
+   height: 34px;
+   border: 0;
+   vertical-align: middle;
+   font: normal 12px/14px "Segoe UI", Arial, Helvetica, Sans-serif;
+   outline: 0 none;
+}
+ 
+.css3-metro-dropdown option
+{
+    background: #fff;
+    color: #333;
+}
+/* select style */
+
 /* on/off switcher css */
 .onoffswitch {
     position: relative; 

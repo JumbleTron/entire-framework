@@ -12,13 +12,14 @@ class Radiobox extends Element {
     }
     
     public function render() {
-        $render = '';
+        $render = '<div class="css3-radios">';
         foreach($this->options as $key => $value) {
             $id = $this->_generateID($value);
             $render .= "<label for='".$id."'>".$value."</label>";
             $render .= "<input type=\"radio\" ".checked($key,$this->_value,false);
-            $render .= " id='".$id."' value='".$key."' name='".$this->_name."' class='".$this->_class."'>";
+            $render .= " id='".$id."' value='".$key."' name='".$this->_name."' class='".$this->_class."'/><span></span>";
         }
+        $render .= '</div>';
         return $this->_render($render);
     }
     

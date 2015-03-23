@@ -12,13 +12,14 @@ class Checkbox extends Element {
     }
     
     public function render() {
-        $render = '';
+        $render = '<div class="css3-checkboxes">';
         foreach($this->options as $key => $value) {
             $id = $this->_generateID($value);
             $render .= "<label for='".$id."'>".$value."</label>";
             $render .= "<input type=\"checkbox\" ".$this->entire_framework_checked($key,$this->_value);
-            $render .= " id='".$id."' value='".$key."' name='".$this->_name."[]' class='".$this->_class."'>";
+            $render .= " id='".$id."' value='".$key."' name='".$this->_name."[]' class='".$this->_class."'/><span></span>";
         }
+        $render .= '</div>';
         return $this->_render($render);
     }
     
