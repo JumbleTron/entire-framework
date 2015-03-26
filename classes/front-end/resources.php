@@ -6,13 +6,9 @@ class Resources {
             'link' => 'assets/css/font-awesome.min.css',
             'depth' => array()
         ),
-        'ef-jqueru-ui-style' => array(
-            'link' => 'assets/css/jquery-ui.min.css',
-            'depth' => array()
-        ),
         'ef-framework-main-style' => array(
             'link' => 'assets/css/style.css',
-            'depth' => array('ef-jqueru-ui-style')
+            'depth' => array()
         ),
     );
     public static $script = array(

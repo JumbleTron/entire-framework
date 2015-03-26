@@ -143,6 +143,7 @@ class EntireFrameworkCallback {
         }
         $render .= $menu->render();
         $render .= $this->entire_framework_do_settings_sections($this->_slug."_".$this->current);
+        $render .= '<div class="clearfix"></div>';
         $render .= "<div class='ef-theme-options-buttons-bottom'>";
         $render .= get_submit_button('Save Changes','primary large','submit',false);
         $render .= get_submit_button('Restore default','large secondary','ef-restore-default',false);

@@ -7,28 +7,85 @@
 .ef-theme-options-buttons,
 .ef-theme-options-buttons-bottom {
     position: absolute;
-    top: 0;
+    top: 1em;
     right: 2%;
 }
 .ef-theme-options-buttons-bottom {
     top: inherit;
-    bottom: 0;
+    bottom: 1em;
 }
-.ef-theme-options-buttons p.submit,
-.ef-theme-options-buttons-bottom p.submit {
-    margin: 5px 0;
+.ef-theme-options-buttons .button,
+.ef-theme-options-buttons-bottom .button {
+    margin:0 10px;
     padding: 0;
 }
 .button-wrapper {
     text-align: right;
 }
-.ui-tabs-vertical { width:95%; margin:40px auto 0 auto; }
-.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 16%; }
-.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
-.ui-tabs-vertical .ui-tabs-nav li a { display:block; width:96%; height:90%; padding:5% 0 5% 4% !important; }
-.ui-tabs-vertical .ui-tabs-nav li a i { margin-right:10px; }
-.ui-tabs-vertical .ui-tabs-panel { padding: .5em 1em; float: right; width: 80%; }
-
+.ui-tabs-vertical { 
+    width:95%; 
+    margin:40px auto 0 auto;  
+    background: #e2e2e2; 
+}
+.ui-tabs-vertical .ui-tabs-nav { 
+    float: left; 
+    width: 14%; 
+    padding: 0;
+    margin: 0;
+}
+.ui-tabs-vertical .ui-tabs-nav li { 
+    clear: left; 
+    width: 100%; 
+}
+.ui-tabs-vertical .ui-tabs-nav li a { 
+    display:block; 
+    width: 80%;
+    height: 100%;
+    padding: 9% 10%;
+    text-decoration: none;
+    color: #000;
+    background: #FFFFFF;
+}
+.ui-tabs-vertical .ui-tabs-nav li a:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 3px;
+    background: #dd1533;
+    -webkit-transition: height 0.5s;
+    transition: height 0.5s;
+}
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active a:before {
+    height: 100%;
+}
+.ui-tabs-vertical .ui-tabs-nav li a:hover:before {
+    height: 100%;
+}
+.ui-tabs-vertical .ui-tabs-nav li a i { 
+    margin-right:10px; 
+}
+.ui-tabs-vertical .ui-tabs-panel { 
+    float: right; 
+    padding: 0 4%;
+    width: 78%; 
+    background: #ffffff; 
+}
+.form-row {
+    padding: 20px;
+    border-bottom: #eee solid 1px;
+}
+.form-row label {
+    display: block;
+    margin-bottom: 10px;
+    width: auto;
+}
+.form-row textarea {
+    width: 100%;
+    height: 250px;
+    resize: none;
+}
 a icon.fa {
     margin-right: 10px;
 }
@@ -49,7 +106,7 @@ a icon.fa {
 .css3-checkboxes input[type="checkbox"] + span::before
 {
     display: inline-block;
-    vertical-align: middle;
+    margin-right: 7px;
 }
  
 .css3-radios,
@@ -151,6 +208,9 @@ a icon.fa {
 /* radio/checkbox style */
 
 /* select style */
+.css3-metro-dropdown select {
+    width: 180px;
+}
 .css3-metro-dropdown option,
 .css3-metro-dropdown:after,
 .css3-metro-dropdown::after,
