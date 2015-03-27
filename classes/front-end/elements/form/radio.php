@@ -1,6 +1,6 @@
 <?php
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/element.php');
-class Radiobox extends Element {
+class Radio extends Element {
     
     private $options;
     

@@ -16,7 +16,6 @@ $pages = array(
                         'id' => 'field1_text',
                         'type' => 'text',
                         'label' => 'Field 1 Text',
-                        'sub_desc' => 'Subdesc for testfield1',
                         'desc' => 'Desc for testField1',
                         'value' => "I'm looking for"
                     ),
@@ -24,7 +23,6 @@ $pages = array(
                         'id' => 'color_field1',
                         'type' => 'color',
                         'label' => 'Label for 1 color',
-                        'sub_desc' => 'Subdesc for testfield1',
                         'desc' => 'Desc for testField1',
                         'value' => "#1e73be"
                     ),
@@ -32,23 +30,33 @@ $pages = array(
                         'id' => 'checkbox_1',
                         'type' => 'checkbox',
                         'label' => 'Select 1',
-                        'sub_desc' => 'Subdesc for checkbox1',
                         'desc' => 'Desc for checkbox1',
-                        'options' => array('value 1','value 2','value 3')
+                        'options' => array('value 1','value 2','value 3'),
+                        'value' => '2',
+                    ),
+                    array(
+                        'id' => 'page_select',
+                        'type' => 'wp_pages',
+                        'label' => 'Page Select 1',
+                        'desc' => 'Page Select 1 desc',
+                        'page_type' => array('page','post'), //avalible pages,posts,CPT
+                        'display' => 'name', //avalible slug,id,name
+                        'element_value' => 'id', //avalible slug,id,name
+                        'elementy_type' => 'select', //avalible radio,checkbox, select
+                        'value' => '5',
                     ),
                     array(
                         'id' => 'select_1',
                         'type' => 'select',
                         'label' => 'Select 1',
-                        'sub_desc' => 'Subdesc for select1',
                         'desc' => 'Desc for select11',
-                        'options' => array('value 1','value 2','value 3')
+                        'options' => array('value 1','value 2','value 3'),
+                        'value' => '0',
                     ),
                      array(
                         'id' => 'switcher_1',
                         'type' => 'switcher',
                         'label' => 'ON/OFF',
-                        'sub_desc' => 'Subdesc for switcher_1',
                         'desc' => 'Desc for switcher_1',
                         'options' => array('ON','OFF')
                     ),
@@ -56,15 +64,14 @@ $pages = array(
                         'id' => 'radio_1',
                         'type' => 'radio',
                         'label' => 'Radio 1',
-                        'sub_desc' => 'Subdesc for radio1',
                         'desc' => 'Desc for radio1',
-                        'options' => array('value 1','value 2','value 3')
+                        'options' => array('value 1','value 2','value 3'),
+                         'value' => '1',
                     ),
                     array(
                         'id' => 'textarea_text_1',
                         'type' => 'textarea',
                         'label' => 'Textarea 1 Text',
-                        'sub_desc' => 'Subdesc for textarea',
                         'desc' => 'Desc for textarea',
                         'value' => "I'm looking for textarea"
                     ),
@@ -72,7 +79,6 @@ $pages = array(
                         'id' => 'first_image',
                         'type' => 'file',
                         'label' => 'First image',
-                        'sub_desc' => 'Subdesc for image1',
                         'desc' => 'Desc for image1',
                         'value' => "cwiczenie",
                         'file_type' => 'image',
@@ -88,7 +94,6 @@ $pages = array(
                         'id' => 'field1b_text',
                         'type' => 'text',
                         'label' => 'Field 1b Text',
-                        'sub_desc' => 'Subdesc for testfield1b',
                         'desc' => 'Desc for testField1b',
                         'value' => "I'm looking for 1b"
                     )
@@ -108,7 +113,6 @@ $pages = array(
                 'id' => 'field2_text',
                 'type' => 'text',
                 'label' => 'Field 2 Text',
-                'sub_desc' => 'Subdesc for testfield2',
                 'desc' => 'Desc for testField2',
                 'value' => "I'm looking for 2"
             ),
@@ -116,7 +120,6 @@ $pages = array(
                 'id' => 'field3_text',
                 'type' => 'text',
                 'label' => 'Field 3 Text',
-                'sub_desc' => 'Subdesc for testfield3',
                 'desc' => 'Desc for testFiel3',
                 'value' => "I'm looking for 3"
             )

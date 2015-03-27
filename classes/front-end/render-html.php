@@ -1,11 +1,12 @@
 <?php
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/checkbox.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/file.php');
-require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/radiobox.php');
+require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/radio.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/select.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/textarea.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/textbox.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/switcher.php');
+require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/wp_pages.php');
 class renderHTML {
     
     private $elemnet;
@@ -45,7 +46,7 @@ class renderHTML {
                 $obj = new Select($this->elemnet,$slug);
                 break;
             case 'radio' :
-                $obj = new Radiobox($this->elemnet,$slug);
+                $obj = new Radio($this->elemnet,$slug);
                 break;
             case 'checkbox' :
                 $obj = new Checkbox($this->elemnet,$slug);
@@ -55,6 +56,9 @@ class renderHTML {
                 break;
             case 'switcher' :
                 $obj = new Switcher($this->elemnet,$slug);
+                break;
+            case 'wp_pages' :
+                $obj = new WPPages($this->elemnet,$slug);
                 break;
         }
         return $obj;

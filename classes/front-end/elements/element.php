@@ -6,6 +6,7 @@ class Element {
     protected $_value;
     protected $_class;
     protected $_label;
+    protected $_desc;
 
 
     public function __construct($element,$slug) {
@@ -22,6 +23,9 @@ class Element {
         if(isset($element['class'])) {
             $this->_class = $element['class'];
         }
+        if(isset($element['desc'])) {
+            $this->_desc = $element['desc'];
+        }
         $this->_page = $page;
         $this->_slug = $slug;
     }
@@ -30,6 +34,9 @@ class Element {
         $render = "<div class='form-row'>";
         $render .= "<label for='".$this->_id."'>".$this->_label."</label>";
         $render .= $child;
+        if($this->_desc !== NULL) {
+            $render .= "<p class='howto entire-framework'>".$this->_desc."</p>";
+        }
         $render .= "</div>";
         return $render;
     }
