@@ -79,8 +79,7 @@ class WPPages {
         $renturn = array();
         if(is_array($this->pageType)) {
             foreach($this->pageType as $type) {
-                $new  = $this->getPostAndPages($type);
-                $renturn = array_merge($renturn,$new);
+                $renturn[ucfirst($type)] = $this->getPostAndPages($type);
             }
         } else {
            $renturn = $this->getPostAndPages($this->pageType); 
