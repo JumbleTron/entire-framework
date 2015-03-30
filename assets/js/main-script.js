@@ -1,6 +1,6 @@
 (function($) {   
     var custom_uploader;
-     
+    
     $(".options-main-wrapper").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
     $(".menu li").removeClass("ui-corner-top").addClass("ui-corner-left");
     
@@ -44,5 +44,20 @@
     
     $('.ef-color_picker').wpColorPicker();
     
+    $(window).scroll(function() {
+        var top = $(this).scrollTop();
+        if(top > $('.ef-theme-options-buttons').offset().top) {
+            if(false) {
+                $('.ef-theme-options-buttons-bottom').removeClass('sticky');
+            } else {
+                $('.ef-theme-options-buttons-bottom').addClass('sticky'); 
+            }
+        } else {
+           $('.ef-theme-options-buttons-bottom').removeClass('sticky'); 
+        }
+    });
+    
 })(jQuery);
+
+
 

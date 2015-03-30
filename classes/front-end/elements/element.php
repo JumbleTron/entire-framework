@@ -53,7 +53,7 @@ class Element {
             return '<option value="">chose value</option>';
         }
     }
-
+    
     public function getName() {
         return $this->_name;
     }

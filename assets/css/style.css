@@ -7,12 +7,21 @@
 .ef-theme-options-buttons,
 .ef-theme-options-buttons-bottom {
     position: absolute;
-    top: 1em;
-    right: 2%;
+    top: 0;
+    right: 0;
+    text-align: right;
+    padding: 12px 0;
+    background: #f6f6f6;
+    width: 86%;
 }
 .ef-theme-options-buttons-bottom {
     top: inherit;
-    bottom: 1em;
+    bottom: 0;
+}
+.ef-theme-options-buttons-bottom.sticky {
+    position: fixed;
+    width: 70.5%;
+    right: 2.1%;
 }
 .ef-theme-options-buttons .button,
 .ef-theme-options-buttons-bottom .button {
@@ -71,6 +80,8 @@
     padding: 0 4%;
     width: 78%; 
     background: #ffffff; 
+    margin-top: 53px;
+    margin-bottom: 53px;
 }
 .form-row {
     padding: 20px;

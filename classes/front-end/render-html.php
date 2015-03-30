@@ -7,6 +7,7 @@ require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/textarea.php'
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/textbox.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/switcher.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/wp_pages.php');
+require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/font.php');
 class renderHTML {
     
     private $elemnet;
@@ -59,6 +60,9 @@ class renderHTML {
                 break;
             case 'wp_pages' :
                 $obj = new WPPages($this->elemnet,$slug);
+                break;
+            case 'font' :
+                $obj = new Font($this->elemnet,$slug);
                 break;
         }
         return $obj;

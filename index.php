@@ -27,6 +27,12 @@ $pages = array(
                         'value' => "#1e73be"
                     ),
                     array(
+                        'id' => 'google_font',
+                        'type' => 'font',
+                        'label' => 'Choose font',
+                        'desc' => 'Desc for Google Font',
+                    ),
+                    array(
                         'id' => 'checkbox_1',
                         'type' => 'checkbox',
                         'label' => 'Select 1',
