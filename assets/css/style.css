@@ -109,13 +109,14 @@ a icon.fa {
 .css3-checkboxes input[type="checkbox"] + span::before
 {
     display: inline-block;
-    margin-right: 7px;
+    margin-right: 12px;
 }
  
 .css3-radios,
 .css3-checkboxes
 {
     position: relative;
+    height: 18px;
 }
  
 .css3-radios label *,
@@ -129,13 +130,13 @@ a icon.fa {
 {
     opacity: 0;
     position: absolute;
+    margin: 0;
 }
  
 .css3-radios input[type="radio"] + span,
 .css3-checkboxes input[type="checkbox"] + span
 {
-    font: normal 11px/14px Arial, Sans-serif;
-    color: #333;
+    margin-right: 5px;
 }
  
 .css3-radios label:hover span::before,
@@ -158,10 +159,10 @@ a icon.fa {
     content: "";
     width: 12px;
     height: 12px;
-    margin: 0 4px 0 0;
     border: solid 1px #a8a8a8;
-    line-height: 14px;
+    line-height: 11px;
     text-align: center;
+    margin: 0;
      
     -moz-border-radius: 100%;
     -webkit-border-radius: 100%;
@@ -200,13 +201,16 @@ a icon.fa {
 .css3-radios input[type="radio"]:checked + span::before
 {
     content: "\2022";
-    font-size: 24px;
+    font-size: 2.4em;
+    vertical-align: top;
+    /*font-size: 24px;*/
 }
  
 .css3-checkboxes input[type="checkbox"]:checked + span::before
 {
     content: "\2714";
-    font-size: 12px;
+    vertical-align: top;
+    /*font-size: 12px;*/
 }
 /* radio/checkbox style */
 
