@@ -43,7 +43,9 @@
     });
     
     $('.ef-color_picker').wpColorPicker();
-        
+
+    $('.options-main-wrapper select').chosen();
+    
     $(window).scroll(function() {
         var top = $(this).scrollTop();
         if(top > $('.ef-theme-options-buttons').offset().top) {

@@ -26,6 +26,7 @@
     position: fixed;
     width: 70.5%;
     right: 2.1%;
+    z-index: 2000;
     
 }
 .ef-theme-options-buttons .button,
@@ -246,6 +247,12 @@ a icon.fa {
 /* radio/checkbox style */
 
 /* select style */
+
+.chosen-container {
+    vertical-align: auto;
+    font-size: 1em;
+    height: 38px;
+}
 .css3-metro-dropdown select {
     width: 180px;
 }
@@ -256,22 +263,42 @@ a icon.fa {
 {
     color: #fff;
 }
- 
-.css3-metro-dropdown select,
+.chosen-container-single .chosen-single,
+.chosen-container-active.chosen-with-drop .chosen-single,
 .css3-metro-dropdown:after,
 .css3-metro-dropdown::after
 {
     display: block;
     background: #78ba00;
+    height: 38px;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow:    none;
+    box-shadow:         none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
 }
- 
+.css3-metro-dropdown:after,
+.css3-metro-dropdown::after {
+    height: 37px;
+}
+.chosen-results li.group-result {
+    background: #78ba00;
+    color: #FFFFFF;
+}
+.chosen-container-single .chosen-single,
+.chosen-container-active.chosen-with-drop .chosen-single {
+    color: #FFFFFF !important;
+    line-height: 36px;
+} 
 .css3-metro-dropdown select,
 .css3-metro-dropdown option
 {
     padding: 8px;
 }
  
-:root .css3-metro-dropdown
+.css3-metro-dropdown
 {
     position: relative;
     display: inline-block;
@@ -300,14 +327,20 @@ a icon.fa {
    height: 34px;
    border: 0;
    vertical-align: middle;
-   font: normal 12px/14px "Segoe UI", Arial, Helvetica, Sans-serif;
    outline: 0 none;
 }
  
-.css3-metro-dropdown option
+.css3-metro-dropdown option,
+.chosen-results li
 {
     background: #fff;
     color: #333;
+}
+.chosen-results li:hover,
+.chosen-results li.result-selected,
+.chosen-results li.highlighted{
+    background: #78ba00 !important;
+    color: #FFFFFF !important;
 }
 /* select style */
 
@@ -358,7 +391,8 @@ a icon.fa {
 }
 .onoffswitch-inner:before {
     content: "ON";
-    background-color: #34A7C1; 
+    //background-color: #34A7C1; 
+    background: #78ba00;
     color: #FFFFFF;
     border-radius: 34px 0 0 34px;
     padding-right: 25px;
