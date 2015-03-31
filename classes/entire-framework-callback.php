@@ -83,8 +83,15 @@ class EntireFrameworkCallback {
         echo '</form>';
     }
     
-    public function entire_framework_section_desc() {
-        return "Sekcja desc";
+    public function entire_framework_section_desc($args) {
+        $id = str_replace(array($this->settingsName.'_'.$this->current.'_','_section'),'',$args['id']);
+        if(isset($this->pages[$this->current]['sub-pages'][$id]['desc'])) {
+            $desc = $this->pages[$this->current]['sub-pages'][$id]['desc'];
+            $output = "<div class='entire-framework-section-desc'>";
+            $output .= "<p>".$desc."</p>";
+            $output .= "</div>";
+            return $output;
+        }
     }
 
     public function entire_framework_form_field($args) {
@@ -197,9 +204,12 @@ class EntireFrameworkCallback {
                 $theme_obj = wp_get_theme();
             }
             $info .= '<p>'.$theme_obj->get('Name').' v. '.$theme_obj->get('Version').'</p>';
+            $info .= '<p> by: <a href="'.$theme_obj->get('AuthorURI').'" target="_blank">'.$theme_obj->get('Author').'</a></p>';
         } else {
             $theme_data = get_theme_data(get_template_directory().'/style.css');
             $info .= '<p>'.$theme_data['Name'].' v. '.$theme_data['Version'].'</p>';
+            $info .= '<p> by: <a href="'.$theme_data['AuthorURI'].'" target="_blank">'.$theme_data['Author'].'</a></p>';
+
         }
         echo $info;
     }

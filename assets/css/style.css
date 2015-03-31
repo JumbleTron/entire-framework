@@ -97,6 +97,12 @@
 .entire-framewrok-theme-info img {
     width: 100%;
 }
+.entire-framework-section-desc {
+    padding:10px 15px;
+    background: #FFFFFF;
+    border-left: 4px solid #0099d5;
+    font-style: italic;
+}
 .form-row {
     padding: 20px;
     border-bottom: #eee solid 1px;
