@@ -54,6 +54,10 @@ class Element {
         }
     }
     
+    public function getDesc() {
+        return $this->_desc;
+    }
+
     public function getName() {
         return $this->_name;
     }

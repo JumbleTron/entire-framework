@@ -89,7 +89,18 @@ class EntireFrameworkCallback {
 
     public function entire_framework_form_field($args) {
         $html = new renderHTML($args);
-        return $html->render($this->settingsName.'_'.$this->current);
+        if($html->getType() == 'wyswig') {
+            $element = $html->render($this->settingsName.'_'.$this->current);
+            echo "<div class='form-row'>";
+            echo "<label for='".$this->_id."'>".$this->_label."</label>";
+            wp_editor($element->getValue(),$element->getName(),$element->getOptions());
+            if($element->getDesc() !== NULL) {
+                echo "<p class='howto entire-framework'>".$element->getDesc()."</p>";
+            }
+            echo "</div>";
+        } else {
+           echo $html->render($this->settingsName.'_'.$this->current); 
+        }
     }
     
     public function entire_framework_current_page() {
@@ -132,25 +143,26 @@ class EntireFrameworkCallback {
     }
 
     private function renderTabs() {
-        $render = "<div class='options-main-wrapper'>";
-        $render .= "<div class='ef-theme-options-buttons'>";
-        $render .= get_submit_button('Save Changes','primary large','submit',false);
-        $render .= get_submit_button('Restore default','large secondary','ef-restore-default',false);
-        $render .= "</div>";
+        echo "<div class='options-main-wrapper ui-tabs-vertical ui-helper-clearfix'>";
+        echo "<div class='ef-theme-options-buttons'>";
+        echo get_submit_button('Save Changes','primary large','submit',false);
+        echo get_submit_button('Restore default','large secondary','ef-restore-default',false);
+        echo "</div>";
         $menu = new Menu('ul');
         foreach($this->pages[$this->current]['sub-pages'] as $key => $subPage) {
             $menu->addLink('#'.$this->generatSlug($subPage['name']),$subPage['title'],$subPage['icon']);
         }
-        $render .= $menu->render();
-        $render .= $this->entire_framework_do_settings_sections($this->_slug."_".$this->current);
-        $render .= '<div class="clearfix"></div>';
-        $render .= "<div class='ef-theme-options-buttons-bottom'>";
-        $render .= get_submit_button('Save Changes','primary large','submit',false);
-        $render .= get_submit_button('Restore default','large secondary','ef-restore-default',false);
-        $render .= "</div>";
-        $render .= "</div>";
-        
-        return $render;
+        echo '<div class="ef-left"><div class="entire-framewrok-theme-info">';
+        echo $this->renderThemeInfo();
+        echo '</div>';
+        echo $menu->render().'</div>';
+        echo $this->entire_framework_do_settings_sections($this->_slug."_".$this->current);
+        echo '<div class="clearfix"></div>';
+        echo "<div class='ef-theme-options-buttons-bottom'>";
+        echo get_submit_button('Save Changes','primary large','submit',false);
+        echo get_submit_button('Restore default','large secondary','ef-restore-default',false);
+        echo "</div>";
+        echo "</div>";
     }
     
     private function entire_framework_do_settings_sections($page) {
@@ -160,20 +172,36 @@ class EntireFrameworkCallback {
         if (!isset($wp_settings_sections) || !isset($wp_settings_sections[$page]))
             return $render;
         foreach((array)$wp_settings_sections[$page] as $key => $section ) {
-            $render .= "<div id='".$this->generatSlug($section['title'])."'>";
-            $render .= "<h3>".$section['title']."</h3>";
-            $render .= call_user_func($section['callback'], $section);
+            echo "<div id='".$this->generatSlug($section['title'])."'>";
+            echo "<h3>".$section['title']."</h3>";
+            echo call_user_func($section['callback'], $section);
             if ( !isset($wp_settings_fields) ||
                  !isset($wp_settings_fields[$page]) ||
                  !isset($wp_settings_fields[$page][$section['id']]) )
                     continue;
             foreach ((array)$wp_settings_fields[$page][$section['id']] as $field) {
                 $field['args']['value'] = $this->setValue($field['args']);
-                $render .= call_user_func($field['callback'],$field['args']);
+                echo call_user_func($field['callback'],$field['args']);
             }
-            $render .= "</div>";
+            echo "</div>";
         }
-        return $render;
+    }
+
+    private function renderThemeInfo() {
+        $info = '<img src="'.ENTIRE_FRAMEWORK_URL.'assets/img/logo.png" />';
+        if(function_exists('wp_get_theme')) {
+            if(is_child_theme()) {
+                $temp_obj = wp_get_theme();
+                $theme_obj = wp_get_theme( $temp_obj->get('Template') );
+            } else {
+                $theme_obj = wp_get_theme();
+            }
+            $info .= '<p>'.$theme_obj->get('Name').' v. '.$theme_obj->get('Version').'</p>';
+        } else {
+            $theme_data = get_theme_data(get_template_directory().'/style.css');
+            $info .= '<p>'.$theme_data['Name'].' v. '.$theme_data['Version'].'</p>';
+        }
+        echo $info;
     }
 
     private function setValue($args) {

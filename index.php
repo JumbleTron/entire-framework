@@ -40,6 +40,14 @@ $pages = array(
                         'options' => array('value 1','value 2','value 3'),
                         'value' => '2',
                     ),
+                     array(
+                        'id' => 'editor_1',
+                        'type' => 'wyswig',
+                        'label' => 'Label for WYSWIG',
+                        'desc' => 'Desc for WYSWIG',
+                        'value' => "",
+                        'options' => array()
+                    ),
                     array(
                         'id' => 'page_select',
                         'type' => 'wp_pages',

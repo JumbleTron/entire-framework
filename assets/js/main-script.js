@@ -1,7 +1,7 @@
 (function($) {   
     var custom_uploader;
     
-    $(".options-main-wrapper").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+    $(".options-main-wrapper").tabs();
     $(".menu li").removeClass("ui-corner-top").addClass("ui-corner-left");
     
     $('.remove_file').click(function(e) {
@@ -43,11 +43,11 @@
     });
     
     $('.ef-color_picker').wpColorPicker();
-    
+        
     $(window).scroll(function() {
         var top = $(this).scrollTop();
         if(top > $('.ef-theme-options-buttons').offset().top) {
-            if(false) {
+            if($(this).scrollTop()+$(this).height() > $(document).height()-50) {
                 $('.ef-theme-options-buttons-bottom').removeClass('sticky');
             } else {
                 $('.ef-theme-options-buttons-bottom').addClass('sticky'); 

@@ -8,9 +8,10 @@ require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/textbox.php')
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/switcher.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/wp_pages.php');
 require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/font.php');
+require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/wyswig.php');
 class renderHTML {
     
-    private $elemnet;
+    public $elemnet;
     private $type;
 
 
@@ -23,10 +24,16 @@ class renderHTML {
         }
     }
     
+    public function getType(){
+        return $this->type;
+    }
+    
     public function render($slug) {
         $obj = $this->createObject($slug);
-        if(is_object($obj)) {
+        if(is_object($obj) && $this->type != 'wyswig') {
             return $obj->render();
+        } else {
+            return $obj;
         }
     }
     
@@ -63,6 +70,9 @@ class renderHTML {
                 break;
             case 'font' :
                 $obj = new Font($this->elemnet,$slug);
+                break;
+            case 'wyswig' :
+                $obj = new Wyswig($this->elemnet,$slug);
                 break;
         }
         return $obj;
