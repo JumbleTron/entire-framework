@@ -31,20 +31,28 @@ class Assets {
         if(is_array($this->pageSlug) && in_array(end($name),$this->pageSlug)) {
             if(!empty($this->style)) {
                 foreach($this->style as $key => $style) {
+                    $depth = array();
                     $url = ENTIRE_FRAMEWORK_URL.$style['link'];
                     if(isset($style['external']) && $style['external']) {
                         $url = $style['link'];
                     }
-                    wp_enqueue_style($key,$url,$style['depth']);
+                    if(isset($style['depth'])) {
+                        $depth = $style['depth'];
+                    }
+                    wp_enqueue_style($key,$url,$depth);
                 }
             }
             if(!empty($this->script)) {
                 foreach($this->script as $key => $script) {
+                    $depth = array();
                     $url = ENTIRE_FRAMEWORK_URL.$script['link'];
                     if(isset($script['external']) && $script['external']) {
                         $url = $script['link'];
                     }
-                    wp_enqueue_script($key,$url,$script['depth'],'',true);
+                    if(isset($script['depth'])) {
+                        $depth = $script['depth'];
+                    }
+                    wp_enqueue_script($key,$url,$depth,'',true);
                 }
             }
        }

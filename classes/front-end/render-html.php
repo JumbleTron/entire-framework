@@ -12,6 +12,7 @@ require_once(ENTIRE_FRAMEWORK_DIR.'classes/front-end/elements/form/wyswig.php');
 class renderHTML {
     
     public $elemnet;
+    public $elementObj;
     private $type;
 
 
@@ -30,10 +31,11 @@ class renderHTML {
     
     public function render($slug) {
         $obj = $this->createObject($slug);
-        if(is_object($obj) && $this->type != 'wyswig') {
-            return $obj->render();
-        } else {
-            return $obj;
+        if(is_object($obj)) {
+            $this->elementObj = $obj;
+            if($this->type != 'wyswig') {
+                return $obj->render();
+            }         
         }
     }
     

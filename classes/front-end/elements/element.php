@@ -26,7 +26,6 @@ class Element {
         if(isset($element['desc'])) {
             $this->_desc = $element['desc'];
         }
-        $this->_page = $page;
         $this->_slug = $slug;
     }
     
@@ -41,6 +40,10 @@ class Element {
         return $render;
     }
 
+    public function removeBrackets($name) {
+        return str_replace(array('[',']'),'',$name);
+    }
+    
     protected function _generateID($string) {
         $id = md5($string.rand(0,999999999).time());
         return substr($id,-8);

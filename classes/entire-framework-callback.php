@@ -15,8 +15,9 @@ class EntireFrameworkCallback {
     private $settingsName;
     private $avaliblePage;
     private $options;
-   
+
     public function __construct($title,$name,$icon,$capability) {
+        global $ef_data;
         $this->_title = $title;
         $this->_name = $name;
         $this->_slug = $this->generatSlug();
@@ -55,7 +56,7 @@ class EntireFrameworkCallback {
                     add_settings_section($this->settingsName.'_'.$key.'_'.$k.'_section',$subPage['title'],array($this,'entire_framework_section_desc'),$this->_slug."_$key");
                     if(isset($subPage['fields'])) {
                         foreach($subPage['fields'] as $fKey => $field) {
-                            add_settings_field($fKey.'_field',$field['title'],array($this,'entire_framework_form_field'),$this->_slug."_$key",$this->settingsName.'_'.$key.'_'.$k.'_section',$field);
+                            add_settings_field($fKey.'_field',$field['id'],array($this,'entire_framework_form_field'),$this->_slug."_$key",$this->settingsName.'_'.$key.'_'.$k.'_section',$field);
                         }
                     }
                 }
@@ -64,7 +65,7 @@ class EntireFrameworkCallback {
                 add_settings_section($this->settingsName.'_'.$key.'_section',$page['title'],array($this,'entire_framework_section_desc'),$this->_slug."_$key");
                 if(isset($page['fields'])) {
                     foreach($page['fields'] as $fKey => $field) {
-                        add_settings_field($fKey.'_field',$field['title'],array($this,'entire_framework_form_field'),$this->_slug."_$key",$this->settingsName.'_'.$key.'_section',$field);
+                        add_settings_field($fKey.'_field',$field['id'],array($this,'entire_framework_form_field'),$this->_slug."_$key",$this->settingsName.'_'.$key.'_section',$field);
                     }
                 }
             }
@@ -95,18 +96,25 @@ class EntireFrameworkCallback {
     }
 
     public function entire_framework_form_field($args) {
+        //global $ef_data;
+        //$ef_data['test'] = 'test';
         $html = new renderHTML($args);
+        $render = $html->render($this->settingsName.'_'.$this->current);
         if($html->getType() == 'wyswig') {
-            $element = $html->render($this->settingsName.'_'.$this->current);
             echo "<div class='form-row'>";
-            echo "<label for='".$this->_id."'>".$this->_label."</label>";
-            wp_editor($element->getValue(),$element->getName(),$element->getOptions());
-            if($element->getDesc() !== NULL) {
-                echo "<p class='howto entire-framework'>".$element->getDesc()."</p>";
+            echo "<label for='".$html->elementObj->getId()."'>".$html->elementObj->getLabel()."</label>";
+            wp_editor($html->elementObj->getValue(),$html->elementObj->removeBrackets($html->elementObj->getId()),$html->elementObj->getOptions());
+            if($html->elementObj->getDesc() !== NULL) {
+                echo "<p class='howto entire-framework'>".$html->elementObj->getDesc()."</p>";
             }
             echo "</div>";
         } else {
-           echo $html->render($this->settingsName.'_'.$this->current); 
+           echo $render; 
+        }
+        if(method_exists($html->elementObj, 'getId')) {
+            $this->value[$html->elementObj->getId()] = $html->elementObj->getValue();
+        } else {
+            $this->value[$html->elementObj->element->getId()] = $html->elementObj->element->getValue();
         }
     }
     
@@ -119,7 +127,7 @@ class EntireFrameworkCallback {
     public function entire_framework_sanitize($input) {
         $current = end(explode('_',$_REQUEST['option_page']));
         $new_input = array();
-        if($_REQUEST['ef-restore-default']) {
+        if(isset($_REQUEST['ef-restore-default'])) {
             if(isset($this->pages[$current]['sub-pages'])) {
                 foreach($this->pages[$current]['sub-pages'] as $key => $page) {
                     foreach($page['fields'] as $fkey => $value) {
@@ -146,7 +154,9 @@ class EntireFrameworkCallback {
     }
     
     public function addPages($pages) {
+        global $ef_data;
         $this->pages = $pages;
+        $ef_data = $this->getValues();
     }
 
     private function renderTabs() {
@@ -214,6 +224,46 @@ class EntireFrameworkCallback {
         echo $info;
     }
 
+    private function getValues() {
+        $values = array();
+        foreach($this->pages as $key => $page) {
+             $savedOptions = get_option($this->settingsName.'_'.$key);
+             if(isset($page['sub-pages'])) {
+                foreach($page['sub-pages'] as $k => $subPage) {
+                    if(isset($subPage['fields'])) {
+                        foreach($subPage['fields'] as $fKey => $field) {
+                            if(isset($savedOptions[$field['id']])) {
+                                $values[$field['id']] = $savedOptions[$field['id']];
+                            } else {
+                                if(isset($field['value'])) {
+                                    $values[$field['id']] = $field['value'];
+                                } else {
+                                     $values[$field['id']] = '';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                if(isset($page['fields'])) {
+                    foreach($page['fields'] as $fKey => $field) {
+                        if(isset($savedOptions[$field['id']])) {
+                            $values[$field['id']] = $savedOptions[$field['id']];
+                        } else {
+                            if(isset($field['value'])) {
+                                $values[$field['id']] = $field['value'];
+                            } else {
+                                 $values[$field['id']] = '';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $values;
+    }
+    
     private function setValue($args) {
         $value = '';
         if(isset($this->options[$args['id']])) {

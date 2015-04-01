@@ -6,7 +6,7 @@ class Font {
 
     private $subnets = array();
     private $font;
-    private $element;
+    public $element;
     
     public function __construct($element,$slug) {
         if(isset($element['subnet'])) {

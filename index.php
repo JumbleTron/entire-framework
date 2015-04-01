@@ -41,7 +41,7 @@ $pages = array(
                         'options' => array('value 1','value 2','value 3'),
                         'value' => '2',
                     ),
-                     array(
+                    array(
                         'id' => 'editor_1',
                         'type' => 'wyswig',
                         'label' => 'Label for WYSWIG',

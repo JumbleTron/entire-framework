@@ -12,6 +12,7 @@ class Wyswig extends Element {
     }
         
     public function getOptions() {
+        $this->options['textarea_name'] = $this->getName();
         return $this->options;
     }
 }

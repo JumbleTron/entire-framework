@@ -10,7 +10,7 @@ class WPPages {
     private $returned;
     private $label;
     private $elementOptions;
-    private $element;
+    public $element;
 
 
     public function __construct($element,$slug) {
