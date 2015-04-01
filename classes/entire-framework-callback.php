@@ -17,7 +17,6 @@ class EntireFrameworkCallback {
     private $options;
 
     public function __construct($title,$name,$icon,$capability) {
-        global $ef_data;
         $this->_title = $title;
         $this->_name = $name;
         $this->_slug = $this->generatSlug();
@@ -26,6 +25,16 @@ class EntireFrameworkCallback {
         $this->settingsName = $this->_slug."_settings";
         add_action('admin_init', array($this,'entire_framework_register_settings'));
         add_action('admin_notices',array($this,'entire_framework_admin_notice'));
+    }
+    
+    public function entire_framework_admin_message() {
+        if(get_current_screen()->base == 'themes') {
+            $link = admin_url('admin.php?page='.$this->_slug);
+            $output = "<div id='setting-error-tgmpa' class='updated settings-error'>";
+            $output .= "<p>This theme comes with an <a href='".$link."'>options panel</a> to configure settings.</p>";
+            $output .= "</div>";
+            echo $output;
+        }
     }
     
     public function entire_framework_admin_notice() {
@@ -45,7 +54,7 @@ class EntireFrameworkCallback {
         }
         global $submenu;
         unset($submenu[$this->_slug][0]);
-        $assets = new Assets($this->avaliblePage);
+        new Assets($this->avaliblePage);
     }
     
     public function entire_framework_register_settings() {
