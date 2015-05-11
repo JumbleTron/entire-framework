@@ -49,6 +49,8 @@ class EntireFrameworkCallback {
             foreach($this->pages as $key => $page) {
                 $this->avaliblePage[] = $key;
                 $p = add_submenu_page($this->_slug,$page['title'],$page['name'],$this->_capability,$this->_slug."_$key",array($this,'entire_framework_render_pages_callback'));
+                add_action('admin_print_styles-'.$p,array(new Assets(),'theme_enqueue_styles'));
+                add_action('admin_print_scripts-'.$p,array(new Assets(),'theme_enqueue_script'));
                 add_action('load-'.$p,array($this,'entire_framework_current_page'));
             }
         }
