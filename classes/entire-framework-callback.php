@@ -216,7 +216,7 @@ class EntireFrameworkCallback {
     }
 
     private function renderThemeInfo() {
-        $info = '<img src="'.ENTIRE_FRAMEWORK_URL.'assets/img/logo.png" />';
+        //$info = '<img src="'.ENTIRE_FRAMEWORK_URL.'assets/img/logo.png" />';
         if(function_exists('wp_get_theme')) {
             if(is_child_theme()) {
                 $temp_obj = wp_get_theme();

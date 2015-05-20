@@ -252,6 +252,7 @@ a icon.fa {
     vertical-align: auto;
     font-size: 1em;
     height: 38px;
+    min-width: 250px;
 }
 .css3-metro-dropdown select {
     width: 180px;
